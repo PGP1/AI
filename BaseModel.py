@@ -98,18 +98,24 @@ classifier.train(
 eval_result = classifier.evaluate(input_fn=lambda: input_fn(test, test_y, training=False))
 print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))
 
-
-# def input_receiver_fn():
-#     inputs = tf.compat.v1.placeholder(dtype=tf.float32, shape=[None,5])
+feature_specs = {
+    "water_level":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0),
+    "temperature_level":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0),
+    "ldr":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0),
+    "pH":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0),
+    "humidity": tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0)
     
-#     features={}
-#     for names in enumerate(feature_names):
-#             features[names] = tf.slice()
+}
+
+def input_r_fn():
+    serialized_tf_example = tf.compat.v1.placeholder(dtype=tf.string, shape=None, 
+                                           name='data')
     
-#     return tf.estimator.export.TensorServingInputReceiver(features,inputs)
-    
+    receiver_tensors = {'data': serialized_tf_example}
+    features = tf.compat.v1.parse_example(serialized_tf_example,feature_specs)
+    return tf.estimator.export.ServingInputReceiver(features, receiver_tensors)
 
 
-# classifier.export_saved_model(export_dir_base='./tensorModels',
-#                               serving_input_receiver_fn=input_receiver_fn
-#                               )
+classifier.export_saved_model(export_dir_base='./tensorModels',
+                              serving_input_receiver_fn=input_r_fn
+                              )
