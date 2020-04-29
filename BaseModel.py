@@ -5,12 +5,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os 
 
-data = keras.datasets.fashion_mnist
+test_path = 'test_d.csv'
 
-
-test_path = 'test_data.csv'
-
-train_dataset_fp = "mock_data2.csv"
+train_dataset_fp = "updated_data.csv"
 
 print("local copy of the dataset file: {}".format(train_dataset_fp))
   
@@ -25,7 +22,25 @@ class_names = ['normal','low light','high light', 'low temp','low temp & low lig
                'low water & high light', 'low water & low temp',
                'low water & low temp & low light', ' low water & low temp & high light',
                'low water & high temp','low water & high temp & low light',
-               'low water & high temp & high light']
+               'low water & high temp & high light','low ph','high ph','low light & low ph',
+               'low light & high ph','low temp & low ph','high light & low ph','high light & high ph',
+               'low temp & low ph','low temp & high ph', 
+               'low temp & low light & low ph', 'low temp & low light & high ph',
+               'low temp & high light & low ph', 'low temp & high light & high ph',
+               'high temp & low ph', 'high temp & high ph', 'high temp & low light & low ph',
+               'high temp & low light & high ph','high temp & high light & low ph',
+               'high temp & high light & high ph', 'low water & low ph', 'low water & high ph',
+               'low water & low light & low ph', 'low water & low light & high ph', 
+               'low water & high light & low ph', 'low water & high light & high ph',
+               'low water & low temp & low ph', 'low water & low temp & high ph',
+               'all levels are low','low water & low temp & low light & high ph',
+               'low water & low temp & high light & low ph',
+               'low water & low temp & high light & high ph',
+               'low water & high temp & low ph','low water & high temp & high ph',
+               'low water & high temp & low light & low ph' ,
+               'low water & high temp & low light & hight ph' ,
+               'low water & high temp & high light & low ph' ,
+               'low water & high temp & high light & high ph' ]
 
 train = pd.read_csv(train_dataset_fp, names=column_names, header=0)
 test = pd.read_csv(test_path, names=column_names, header=0)
@@ -74,15 +89,15 @@ my_feature_columns = []
 
 my_feature_columns= make_tf_normalised_column()
 
-print(my_feature_columns)
+print(my_feature_columns[:1])
 
 classifier = tf.estimator.DNNClassifier(
      feature_columns=my_feature_columns,       
-     hidden_units=[100,18],
-     n_classes = 18,
+     hidden_units=[100,54],
+     n_classes = 54,
      optimizer=lambda: tf.keras.optimizers.Adam(
         learning_rate=tf.compat.v1.train.exponential_decay(
-            learning_rate=0.1,
+            learning_rate=0.03,
             global_step=tf.compat.v1.train.get_global_step(),
             decay_steps=10000,
             decay_rate=0.96))
@@ -92,30 +107,43 @@ classifier = tf.estimator.DNNClassifier(
 
 classifier.train(
     input_fn=lambda: input_fn(train,train_y, training=True),
-    steps=5000
+    steps = 400000
 )
 
 eval_result = classifier.evaluate(input_fn=lambda: input_fn(test, test_y, training=False))
 print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))
 
+
 feature_specs = {
-    "water_level":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0),
-    "temperature_level":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0),
-    "ldr":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0),
-    "pH":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0),
-    "humidity": tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=0)
+    "water_level":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=None),
+    "temperature_level":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=None),
+    "ldr":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=None),
+    "pH":  tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=None),
+    "humidity": tf.io.FixedLenFeature(shape=[1,], dtype=tf.float32, default_value=None)
     
 }
 
 def input_r_fn():
-    serialized_tf_example = tf.compat.v1.placeholder(dtype=tf.string, shape=None, 
+    serialized_tf_example = tf.compat.v1.placeholder(dtype=tf.string, shape=[1], 
                                            name='data')
     
-    receiver_tensors = {'data': serialized_tf_example}
+    receiver_tensors = {'examples': serialized_tf_example}
     features = tf.compat.v1.parse_example(serialized_tf_example,feature_specs)
     return tf.estimator.export.ServingInputReceiver(features, receiver_tensors)
 
 
+# my_f = tf.feature_column.make_parse_example_spec(my_feature_columns)
+
+# print(my_f)
+# input_receiver = tf.estimator.export.build_raw_serving_input_receiver_fn(
+#     my_f, default_batch_size=None
+# )
+
 classifier.export_saved_model(export_dir_base='./tensorModels',
                               serving_input_receiver_fn=input_r_fn
                               )
+
+
+
+
+
