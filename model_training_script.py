@@ -16,32 +16,6 @@ column_names = ['water_level','temperature_level','ldr','pH','humidity','label']
 feature_names = column_names[:-1]
 label_name = column_names[-1]
 
-class_names = ['normal','low light','high light', 'low temp','low temp & low light',
-              'low temp & high light','high temp','high temp & low light',
-               'high temp & high light','low water','low water & low light',
-               'low water & high light', 'low water & low temp',
-               'low water & low temp & low light', ' low water & low temp & high light',
-               'low water & high temp','low water & high temp & low light',
-               'low water & high temp & high light','low ph','high ph','low light & low ph',
-               'low light & high ph','low temp & low ph','high light & low ph','high light & high ph',
-               'low temp & low ph','low temp & high ph', 
-               'low temp & low light & low ph', 'low temp & low light & high ph',
-               'low temp & high light & low ph', 'low temp & high light & high ph',
-               'high temp & low ph', 'high temp & high ph', 'high temp & low light & low ph',
-               'high temp & low light & high ph','high temp & high light & low ph',
-               'high temp & high light & high ph', 'low water & low ph', 'low water & high ph',
-               'low water & low light & low ph', 'low water & low light & high ph', 
-               'low water & high light & low ph', 'low water & high light & high ph',
-               'low water & low temp & low ph', 'low water & low temp & high ph',
-               'all levels are low','low water & low temp & low light & high ph',
-               'low water & low temp & high light & low ph',
-               'low water & low temp & high light & high ph',
-               'low water & high temp & low ph','low water & high temp & high ph',
-               'low water & high temp & low light & low ph' ,
-               'low water & high temp & low light & hight ph' ,
-               'low water & high temp & high light & low ph' ,
-               'low water & high temp & high light & high ph' ]
-
 train = pd.read_csv(train_dataset_fp, names=column_names, header=0)
 test = pd.read_csv(test_path, names=column_names, header=0)
 

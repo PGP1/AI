@@ -3,7 +3,7 @@ import tensorflow as tf
 tf.compat.v1.disable_eager_execution()
 
 
-model_url = "tensorModels/trial"
+model_url = "newest_model"
 
 imported = tf.keras.models.load_model(model_url)
 
