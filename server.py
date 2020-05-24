@@ -30,6 +30,10 @@ def response(message):
     logger.info('respionding to request')
     emit('server_response',{'data':'hello from server'})
 
+@socketio.on('json')
+def handle_json(json):
+    send(json, json=True)
+
 @socketio.on('connect', namespace='test')
 def connect():
     emit('server_response', {'data': 'Connected to server'})
