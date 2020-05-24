@@ -187,7 +187,7 @@ if __name__ == '__main__':
         print("formatted feat_data", feat_data)
         #6 - Parse and print the transactions
         
-        prediction = model_predict.predict(feat_data)
+        prediction = model_predict(feat_data)
 
     except Exception as e:
         print(e)
