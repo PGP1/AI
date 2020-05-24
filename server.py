@@ -18,6 +18,9 @@ app.config['SECRET_KEY'] = KEY
 app.debug = True
 socketio = SocketIO(app)
 
+def ack():
+    print('message was received!')
+
 # route setup
 @app.route('/')
 def index():
@@ -32,7 +35,7 @@ def response(message):
 
 @socketio.on('json')
 def handle_json(json):
-    send(json, json=True)
+    send(json, json=True, callback=ack)
 
 @socketio.on('connect', namespace='test')
 def connect():
