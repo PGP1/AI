@@ -29,7 +29,7 @@ We are no longer using a self-managed cluster so the only pre-requisite is an AW
 Note: be sure to have your SNS queue and SNS Topic set up and working before integrating the deployment of the model.
 
 
-2 Code Setup 
+<h1> 2 Setup and Training </h1>
 
 2.1 a good platform to use for machine learning based code and scripts is Jupyter Notebooks so we are going to have to set that up either locally with ANACONDA 3 or SageMaker which requires an instance. LOCALLY: install anaconda 3 from the internet and choose your desired language and libraries. If you want to use the skeleton, you can select the tensorflow 2.1.0 with python 2.7.
 
@@ -41,7 +41,7 @@ In the local directory on the side nav of the interface you should be able to se
 
 2.4 Once the data is in train the model by running the code within the notebook itself, once done the model should be exported to the local directory automatcally, under the name as be deployed to the s3 bucket as well.
 
-3 Deployment
+<h1> Deployment </h1>
 
 3.1 Login into AWS and engage the SageMaker service.
    
@@ -52,7 +52,7 @@ In the local directory on the side nav of the interface you should be able to se
 3.4 Run the deployment code inside of jupyterlabs and wait for your endpoint to finish creation
 
 
-4 Testing
+<h1> 4 Testing </h1>
 
 4.1 In order to test and debug, set up cloudwatch inside of the amazon cloud services by enabling the service
 and create a test configuration inside of your lambda function which triggers your lambda based off of a json dummy which we can put in
