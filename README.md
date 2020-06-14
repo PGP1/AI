@@ -48,9 +48,9 @@ In the local directory on the side nav of the interface you should be able to se
      <img src="/images/instance_d.PNG" width="600" height="300" />
 
 4) Once the data is in train the model by running the code within the notebook itself, once done the model should be exported to the local directory automatcally, under the name as be deployed to the s3 bucket as well.
-
+      <br></br>
      <img src="/images/s3.PNG" width="600" height="300" />
-
+      <br></br>
 <h1>3. Deployment </h1>
 
 1) Login into AWS and engage the SageMaker service.
