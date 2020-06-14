@@ -48,6 +48,11 @@ In the local directory on the side nav of the interface you should be able to se
 
 3.4 Run the deployment code inside of jupyterlabs and wait for your endpoint to finish creation
 
+3.5 Once deployment is finished, the endpoint can be used and takes in body data from the format : 
+{"signature_name":"predict", "inputs":{"water_level": 7, "temperature_level": 38, "ldr": 400, "pH": 7, "humidity":70}}
+this will return a dictionary object, with the class id of categorized by the model. this value can be passed to the array inside of 
+the predict_function code. 
+
 
 <h1> 4. Testing </h1>
 
