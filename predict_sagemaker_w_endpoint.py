@@ -73,7 +73,7 @@ def lambda_handler(event, context):
 
     _id = '{}-{}'.format(user['device'], user['username'])
     url = host + '/' + _id + '/_msearch'
-
+    # loadin in the event and then formatting data so that can be processed.
     elastic_r = requests.get(url, auth=awsauth, data=data_to_post, headers=headers)
     raw_data = json.loads(elastic_r.text)
 
@@ -88,7 +88,7 @@ def lambda_handler(event, context):
     feat_data['pH'] = latest_data[2]
     feat_data['temperature_level'] = latest_data[3]
     feat_data['ldr'] = latest_data[4]
-    
+     # Specifying the feature data so that the data can be used for prediction.
     prediction_input = {'signature_name':"predict", 'inputs': feat_data }
 
     class_names = ['normal','low light','high light', 'low temp','low temp & low light',
@@ -116,12 +116,12 @@ def lambda_handler(event, context):
                         'low water & high temp & low light & hight ph' ,
                         'low water & high temp & high light & low ph' ,
                         'low water & high temp & high light & high ph' ]
- 
+    # classnames for us to identify the prediction itself. 
     response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME,
                                       ContentType='application/json',
                                       Body=json.dumps(prediction_input))
     result = json.loads(response['Body'].read().decode())
-    
+    # endpoint invocation and result decoding.
     class_index = result['outputs']['class_ids'][0][0]
     
     prediction_value = class_names[class_index]
@@ -134,7 +134,7 @@ def lambda_handler(event, context):
     write_json['prediction'] = prediction_value
     write_json['type'] = "prediction"
     write_json['time'] = datetime.datetime.now().isoformat()
-    
+    # formatting the result so that the data can be written to the bucket for s3.
     
     key = _id + '/' + 'predictions' + '/' + str(random.randint(0, 999999)) + '-prediction.json'
     
