@@ -46,9 +46,9 @@ The code in this repo, builds and trains a estimator or more specifically a DNNC
 3) Upload the data into skeleton by providing a data csv within the local instance located in the same directory as the ipynb file.
 In the local directory on the side nav of the interface you should be able to see your files there, be sure to have 2 sets of .csv data: one for tests and one for training. (if using skeleton, training data should be named 'updated.csv' and 'test_d.csv')
 
- 
-4) Once the data is in train the model by running the code within the notebook itself, once done the model should be exported to the local directory automatcally, under the name as be deployed to the s3 bucket as well.
 
+4) Once the data is in train the model by running the code within the notebook itself, once done the model should be exported to the local directory automatcally, under the name as be deployed to the s3 bucket as well.
+![s3 bucket](/images/s3)
 <h1>3. Deployment </h1>
 
 1) Login into AWS and engage the SageMaker service.
