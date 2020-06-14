@@ -45,11 +45,11 @@ The code in this repo, builds and trains a estimator or more specifically a DNNC
 
 3) Upload the data into skeleton by providing a data csv within the local instance located in the same directory as the ipynb file.
 In the local directory on the side nav of the interface you should be able to see your files there, be sure to have 2 sets of .csv data: one for tests and one for training. (if using skeleton, training data should be named 'updated.csv' and 'test_d.csv')
-     <img src="/images/instance_d.PNG" width="300" height="300" />
+     <img src="/images/instance_d.PNG" width="600" height="300" />
 
 4) Once the data is in train the model by running the code within the notebook itself, once done the model should be exported to the local directory automatcally, under the name as be deployed to the s3 bucket as well.
 
-     <img src="/images/s3.PNG" width="300" height="300" />
+     <img src="/images/s3.PNG" width="600" height="300" />
 
 <h1>3. Deployment </h1>
 
@@ -73,8 +73,8 @@ the predict_function code.
 
 In order to test and debug, 
 - Set up cloudwatch inside of the amazon cloud services by enabling the service
-  <img src="/images/cloudw1.PNG" width="300" height="300" />
-  <img src="/images/cloudw2.PNG" width="300" height="300" />
+  <img src="/images/cloudw1.PNG" width="600" height="300" />
+  <img src="/images/cloudw2.PNG" width="600" height="300" />
     
 
 - Create a test configuration inside of your lambda function which triggers your lambda based off of a json dummy which we can put in
