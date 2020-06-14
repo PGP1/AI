@@ -1,6 +1,3 @@
-Elasticsearch
-Tests, configs and setup instructions for our Elasticsearch Cluster
-
 <h1> 1. Pre-Requistites </h1>
 
 TRAINING SCRIPT : 
