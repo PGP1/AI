@@ -60,6 +60,7 @@ In the local directory on the side nav of the interface you should be able to se
 3) Upload local files to the notebook. This includes the training script which is used to make the model as this will be required in the deployment code for the Sagemaker endpoint. 
 
 4) Run the deployment code inside of jupyterlabs and wait for your endpoint to finish creation
+      <img src="/images/deploying.PNG" width="600" height="300" />
 
 5) Once deployment is finished, the endpoint can be used and takes in body data from the format : 
 ```
@@ -73,8 +74,10 @@ the predict_function code.
 
 In order to test and debug, 
 - Set up cloudwatch inside of the amazon cloud services by enabling the service
-  <img src="/images/cloudw1.PNG" width="600" height="300" />
-  <img src="/images/cloudw2.PNG" width="600" height="300" />
+  <img src="/images/cloudw1.PNG" width="400" height="300" />
+  <img src="/images/cloudw2.PNG" width="400" height="300" />
     
 
 - Create a test configuration inside of your lambda function which triggers your lambda based off of a json dummy which we can put in
+  <br/>
+  <img src="/images/lambda_t.PNG" width="600" height="300" />
